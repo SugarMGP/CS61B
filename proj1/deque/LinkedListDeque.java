@@ -6,7 +6,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     int length;
     private LinkedListNode<T> point;
 
-    public LinkedListDeque(){
+    public LinkedListDeque() {
         this.point = null;
         this.length = 0;
     }
@@ -110,6 +110,15 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         return new LinkedListDequeIterator<>(this.point);
     }
 
+    static class LinkedListNode<E> {
+        public E data;
+        public LinkedListNode<E> first, last;
+
+        public LinkedListNode(E data) {
+            this.data = data;
+        }
+    }
+
     class LinkedListDequeIterator<E> implements Iterator<E> {
         LinkedListNode<E> node;
 
@@ -125,15 +134,6 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             E data = this.node.data;
             this.node = this.node.last;
             return data;
-        }
-    }
-
-    static class LinkedListNode<E> {
-        public E data;
-        public LinkedListNode<E> first, last;
-
-        public LinkedListNode(E data) {
-            this.data = data;
         }
     }
 }

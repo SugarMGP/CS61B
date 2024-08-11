@@ -46,6 +46,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public T removeFirst() {
+        if (isEmpty()) {
+            return null;
+        }
         T item = array[0];
         T[] newArray = (T[]) new Object[array.length - 1];
         System.arraycopy(array, 1, newArray, 0, size - 1);
@@ -56,6 +59,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public T removeLast() {
+        if (isEmpty()) {
+            return null;
+        }
         T item = array[size - 1];
         array[size - 1] = null;
         size--;

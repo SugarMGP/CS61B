@@ -87,7 +87,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     public T get(int index) {
         LinkedListNode<T> tmp = this.point;
-        for (int a = index; a > 0; --a) {
+        for (int a = 0; a < index; a++) {
             tmp = tmp.last;
         }
         return tmp.data;

@@ -13,7 +13,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public void addFirst(T item) {
-        T[] newArray = (T[]) new Object[size + 1];
+        T[] newArray = (T[]) new Object[array.length + 1];
         newArray[0] = item;
         System.arraycopy(array, 0, newArray, 1, size);
         array = newArray;
@@ -23,12 +23,12 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     @Override
     public void addLast(T item) {
         if (size == array.length) {
-            T[] newArray = (T[]) new Object[size * 2];
+            T[] newArray = (T[]) new Object[array.length * 2];
             System.arraycopy(array, 0, newArray, 0, size);
             array = newArray;
         }
-        this.array[size] = item;
-        this.size++;
+        array[size] = item;
+        size++;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     @Override
     public T removeFirst() {
         T item = array[0];
-        T[] newArray = (T[]) new Object[size - 1];
+        T[] newArray = (T[]) new Object[array.length - 1];
         System.arraycopy(array, 1, newArray, 0, size - 1);
         array = newArray;
         size--;

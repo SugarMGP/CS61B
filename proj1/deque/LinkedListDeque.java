@@ -3,7 +3,7 @@ package deque;
 import java.util.Iterator;
 
 public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
-    int length;
+    private int length;
     private LinkedListNode<T> point;
 
     public LinkedListDeque() {
@@ -16,6 +16,22 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         this.point.first = this.point;
         this.point.last = this.point;
         this.length++;
+    }
+
+    public boolean equals(Object o) {
+        if (!(o instanceof Deque)) {
+            return false;
+        }
+        Deque<T> deque = (Deque<T>) o;
+        if (deque.size() != size()) {
+            return false;
+        }
+        for (int i = 0; i < size(); i++) {
+            if (deque.get(i) != get(i)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void addFirst(T item) {
@@ -106,7 +122,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         return new LinkedListDequeIterator<>(this.point);
     }
 
-    static class LinkedListNode<E> {
+    private static class LinkedListNode<E> {
         public E data;
         public LinkedListNode<E> first, last;
 
@@ -115,7 +131,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         }
     }
 
-    class LinkedListDequeIterator<E> implements Iterator<E> {
+    private class LinkedListDequeIterator<E> implements Iterator<E> {
         LinkedListNode<E> node;
 
         public LinkedListDequeIterator(LinkedListNode<E> n) {

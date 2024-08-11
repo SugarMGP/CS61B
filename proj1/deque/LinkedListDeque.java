@@ -3,8 +3,13 @@ package deque;
 import java.util.Iterator;
 
 public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
-    int length = 0;
-    private LinkedListNode<T> point = null;
+    int length;
+    private LinkedListNode<T> point;
+
+    public LinkedListDeque(){
+        this.point = null;
+        this.length = 0;
+    }
 
     private void init(T data) {
         this.point = new LinkedListNode<>(data);
@@ -123,7 +128,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         }
     }
 
-    class LinkedListNode<E> {
+    static class LinkedListNode<E> {
         public E data;
         public LinkedListNode<E> first, last;
 

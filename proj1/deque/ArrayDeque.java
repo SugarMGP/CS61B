@@ -3,17 +3,17 @@ package deque;
 import java.util.Iterator;
 
 public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
-    private T[] array;
-    private int size;
+    protected T[] array;
+    protected int size;
 
     public ArrayDeque() {
-        this.array = (T[]) new Object[100];
+        this.array = (T[]) new Object[8];
         this.size = 0;
     }
 
     @Override
     public void addFirst(T item) {
-        T[] newArray = (T[]) new Object[size * 2];
+        T[] newArray = (T[]) new Object[size + 1];
         newArray[0] = item;
         System.arraycopy(array, 0, newArray, 1, size);
         array = newArray;
@@ -28,11 +28,6 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         }
         this.array[size] = item;
         this.size++;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return size == 0;
     }
 
     @Override

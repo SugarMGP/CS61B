@@ -137,13 +137,4 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             }
         };
     }
-
-    private static class LinkedListNode<E> {
-        public E data;
-        public LinkedListNode<E> first, last;
-
-        public LinkedListNode(E data) {
-            this.data = data;
-        }
-    }
 }

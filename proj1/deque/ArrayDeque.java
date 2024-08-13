@@ -13,10 +13,15 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public void addFirst(T item) {
-        T[] newArray = (T[]) new Object[array.length + 1];
-        newArray[0] = item;
-        System.arraycopy(array, 0, newArray, 1, size);
-        array = newArray;
+        if (size == array.length) {
+            T[] newArray = (T[]) new Object[array.length * 2];
+            newArray[0] = item;
+            System.arraycopy(array, 0, newArray, 1, size);
+            array = newArray;
+        } else {
+            System.arraycopy(array, 0, array, 1, size);
+            array[0] = item;
+        }
         size++;
     }
 
@@ -46,14 +51,18 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public T removeFirst() {
-        if (isEmpty()) {
+        if (size == 0) {
             return null;
         }
         T item = array[0];
-        T[] newArray = (T[]) new Object[array.length - 1];
-        System.arraycopy(array, 1, newArray, 0, size - 1);
-        array = newArray;
         size--;
+        if (size == 0) {
+            array[0] = null;
+        } else {
+            T[] newArray = (T[]) new Object[array.length - 1];
+            System.arraycopy(array, 1, newArray, 0, size - 1);
+            array = newArray;
+        }
         return item;
     }
 

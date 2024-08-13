@@ -56,12 +56,12 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         }
         T item = array[0];
         size--;
-        if (size == 0) {
-            array[0] = null;
-        } else {
+        if (array.length != 1) {
             T[] newArray = (T[]) new Object[array.length - 1];
-            System.arraycopy(array, 1, newArray, 0, size - 1);
+            System.arraycopy(array, 1, newArray, 0, size);
             array = newArray;
+        } else {
+            array[0] = null;
         }
         return item;
     }

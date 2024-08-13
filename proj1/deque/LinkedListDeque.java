@@ -27,7 +27,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             return false;
         }
         for (int i = 0; i < size(); i++) {
-            if (deque.get(i) != get(i)) {
+            if (!deque.get(i).equals(get(i))) {
                 return false;
             }
         }
@@ -136,5 +136,14 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
                 return data;
             }
         };
+    }
+
+    private static class LinkedListNode<E> {
+        E data;
+        LinkedListNode<E> first, last;
+
+        LinkedListNode(E data) {
+            this.data = data;
+        }
     }
 }

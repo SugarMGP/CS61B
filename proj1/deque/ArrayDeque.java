@@ -14,7 +14,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     @Override
     public void addFirst(T item) {
         if (size == array.length) {
-            T[] newArray = (T[]) new Object[array.length * 3];
+            T[] newArray = (T[]) new Object[array.length * 2];
             newArray[0] = item;
             System.arraycopy(array, 0, newArray, 1, size);
             array = newArray;
@@ -30,7 +30,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     @Override
     public void addLast(T item) {
         if (size == array.length) {
-            T[] newArray = (T[]) new Object[array.length * 3];
+            T[] newArray = (T[]) new Object[array.length * 2];
             System.arraycopy(array, 0, newArray, 0, size);
             array = newArray;
         }
@@ -57,14 +57,11 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             return null;
         }
         T item = array[0];
-        size--;
-        if (array.length != 1) {
-            T[] newArray = (T[]) new Object[array.length - 1];
-            System.arraycopy(array, 1, newArray, 0, size);
-            array = newArray;
-        } else {
-            array[0] = null;
+        for (int i = 0; i < size - 1; i++) {
+            array[i] = array[i + 1];
         }
+        array[size - 1] = null;
+        size--;
         return item;
     }
 
@@ -76,6 +73,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         T item = array[size - 1];
         array[size - 1] = null;
         size--;
+
         return item;
     }
 

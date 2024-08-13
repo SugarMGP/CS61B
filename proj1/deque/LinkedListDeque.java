@@ -7,15 +7,15 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private LinkedListNode<T> point;
 
     public LinkedListDeque() {
-        this.point = null;
         this.length = 0;
+        this.point = new LinkedListNode<>(null);
+        this.point.first = this.point;
+        this.point.last = this.point;
     }
 
     private void init(T data) {
-        this.point = new LinkedListNode<>(data);
-        this.point.first = this.point;
-        this.point.last = this.point;
-        this.length++;
+        this.point.data = data;
+        this.length = 1;
     }
 
     public boolean equals(Object o) {
@@ -114,12 +114,28 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     private T getRecursive(int index, LinkedListNode<T> node) {
-        return index == 0 ? node.data : this.getRecursive(index - 1, this.point.last);
+        return index == 0 ? node.data : this.getRecursive(index - 1, node.last);
     }
 
     @Override
     public Iterator<T> iterator() {
-        return new LinkedListDequeIterator<>(this.point);
+        return new Iterator<>() {
+            LinkedListNode<T> node = point;
+            int index = 0;
+
+            @Override
+            public boolean hasNext() {
+                return this.index < size();
+            }
+
+            @Override
+            public T next() {
+                index++;
+                T data = this.node.data;
+                this.node = this.node.last;
+                return data;
+            }
+        };
     }
 
     private static class LinkedListNode<E> {
@@ -128,24 +144,6 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
         public LinkedListNode(E data) {
             this.data = data;
-        }
-    }
-
-    private class LinkedListDequeIterator<E> implements Iterator<E> {
-        LinkedListNode<E> node;
-
-        public LinkedListDequeIterator(LinkedListNode<E> n) {
-            this.node = n;
-        }
-
-        public boolean hasNext() {
-            return this.node.last != LinkedListDeque.this.point;
-        }
-
-        public E next() {
-            E data = this.node.data;
-            this.node = this.node.last;
-            return data;
         }
     }
 }

@@ -50,7 +50,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             return null;
         }
         T item = array[0];
-        T[] newArray = (T[]) new Object[array.length];
+        T[] newArray = (T[]) new Object[array.length - 1];
         System.arraycopy(array, 1, newArray, 0, size - 1);
         array = newArray;
         size--;
